@@ -2,3 +2,4 @@
 Welcome to my Java Spring Boot journey repository! 
 https://whimsical.com/spring-mvc-QaAM22bTvoNbNKxJX2jiJ5
 ![image](https://github.com/user-attachments/assets/347ab937-9168-4213-ab3e-38c8c4adb59e)
+<iframe style="border:none" width="800" height="450" src="https://whimsical.com/embed/QaAM22bTvoNbNKxJX2jiJ5"></iframe>
