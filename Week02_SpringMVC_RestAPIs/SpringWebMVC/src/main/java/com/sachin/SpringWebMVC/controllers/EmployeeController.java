@@ -3,6 +3,8 @@ package com.sachin.SpringWebMVC.controllers;
 import com.sachin.SpringWebMVC.dto.EmployeeDTO;
 import com.sachin.SpringWebMVC.entities.EmployeeEntity;
 import com.sachin.SpringWebMVC.repositories.EmployeeRepository;
+import com.sachin.SpringWebMVC.services.EmployeeService;
+import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,27 +19,27 @@ public class EmployeeController {
 //            return "Secret message : asdfsdf@43e5";
 //        }
 
-    private final EmployeeRepository employeeRepository;
+    private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
 
     @GetMapping(path = "/{employeeId}")
-    public EmployeeEntity getEmployeeByID(@PathVariable(name = "employeeId") Long employeeId) {
-        return employeeRepository.findById(employeeId).orElse(null);
+    public EmployeeDTO getEmployeeById(@PathVariable(name = "employeeId") Long employeeId) {
+        return employeeService.getEmployeeById(employeeId);
     }
 
     @GetMapping
-    public List<EmployeeEntity> getAllEmployees(@RequestParam(required = false) Integer age){
-        return employeeRepository.findAll();
+    public List<EmployeeDTO> getAllEmployees(@RequestParam(required = false) Integer age){
+        return employeeService.getAllEmployees();
     }
 
 
     @PostMapping
-    public EmployeeEntity createNewEmployee(@RequestBody EmployeeEntity employeeEntity){
-        return employeeRepository.save(employeeEntity);
+    public EmployeeDTO createNewEmployee(@RequestBody EmployeeDTO employeeDTO){
+        return employeeService.createNewEmployee(employeeDTO);
     }
 
     @PutMapping
