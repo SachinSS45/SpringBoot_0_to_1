@@ -1,10 +1,12 @@
 package com.sachin.SpringWebMVC.controllers;
 
 import com.sachin.SpringWebMVC.dto.EmployeeDTO;
+import com.sachin.SpringWebMVC.entities.EmployeeEntity;
+import com.sachin.SpringWebMVC.repositories.EmployeeRepository;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/employees")
@@ -15,21 +17,27 @@ public class EmployeeController {
 //            return "Secret message : asdfsdf@43e5";
 //        }
 
+    private final EmployeeRepository employeeRepository;
+
+    public EmployeeController(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+
+
     @GetMapping(path = "/{employeeId}")
-    public EmployeeDTO getEmployeeByID(@PathVariable(name = "employeeId") Long employeeId){
-        return new EmployeeDTO(employeeId,"Sachin","sachin@gmail.com",24, LocalDate.of(2023,9,7),true);
+    public EmployeeEntity getEmployeeByID(@PathVariable(name = "employeeId") Long employeeId) {
+        return employeeRepository.findById(employeeId).orElse(null);
     }
 
     @GetMapping
-    public String getAllEmployees(@RequestParam(required = false) Integer age){
-        return "Hi Age "+ age;
+    public List<EmployeeEntity> getAllEmployees(@RequestParam(required = false) Integer age){
+        return employeeRepository.findAll();
     }
 
 
     @PostMapping
-    public EmployeeDTO createNewEmployee(@RequestBody EmployeeDTO employeeDTO){
-        employeeDTO.setId(100L);//we are saying don't give id I will give
-        return employeeDTO;
+    public EmployeeEntity createNewEmployee(@RequestBody EmployeeEntity employeeEntity){
+        return employeeRepository.save(employeeEntity);
     }
 
     @PutMapping
