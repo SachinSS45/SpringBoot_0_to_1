@@ -1,5 +1,7 @@
 package com.sachin.SpringWebMVC.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 
 public class EmployeeDTO {
@@ -9,6 +11,8 @@ public class EmployeeDTO {
     private String email;
     private Integer age;
     private LocalDate dateOfJoining;
+
+    @JsonProperty("isActive")
     private Boolean isActive;
 
     public EmployeeDTO() {
@@ -64,11 +68,11 @@ public class EmployeeDTO {
         this.dateOfJoining = dateOfJoining;
     }
 
-    public Boolean getActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public void setActive(Boolean active) {
+    public void setIsActive(Boolean active) {
         isActive = active;
     }
 }
