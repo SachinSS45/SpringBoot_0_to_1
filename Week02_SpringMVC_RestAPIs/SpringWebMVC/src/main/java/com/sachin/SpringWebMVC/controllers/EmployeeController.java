@@ -2,6 +2,7 @@ package com.sachin.SpringWebMVC.controllers;
 
 import com.sachin.SpringWebMVC.dto.EmployeeDTO;
 import com.sachin.SpringWebMVC.entities.EmployeeEntity;
+import com.sachin.SpringWebMVC.exceptions.ResourceNotFoundException;
 import com.sachin.SpringWebMVC.repositories.EmployeeRepository;
 import com.sachin.SpringWebMVC.services.EmployeeService;
 import jakarta.validation.Valid;
@@ -36,7 +37,7 @@ public class EmployeeController {
         Optional<EmployeeDTO> employeeDTO = employeeService.getEmployeeById(employeeId);
         return employeeDTO
                 .map(employeeDTO1 -> ResponseEntity.ok(employeeDTO1))
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(()->new ResourceNotFoundException("Employee Not Found with id : " + employeeId));
     }
 
     @GetMapping
@@ -52,7 +53,7 @@ public class EmployeeController {
     }
 
     @PutMapping(path = "/{employeeId}")
-    public ResponseEntity<EmployeeDTO> updateEmployeeById(@RequestBody EmployeeDTO employeeDTO,@PathVariable Long employeeId){
+    public ResponseEntity<EmployeeDTO> updateEmployeeById(@RequestBody @Valid EmployeeDTO employeeDTO,@PathVariable Long employeeId){
         return ResponseEntity.ok(employeeService.updateEmployeeById(employeeDTO,employeeId));
     }
 
