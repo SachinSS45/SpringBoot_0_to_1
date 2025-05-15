@@ -48,4 +48,5 @@ public class GlobalExceptionHandler {
                 .build();
         return new ResponseEntity<>(apiError,HttpStatus.BAD_REQUEST);
     }
+
 }
