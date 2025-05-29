@@ -9,8 +9,11 @@ import org.springframework.context.ConfigurableApplicationContext;
 @SpringBootApplication
 public class Project1Application implements CommandLineRunner {
 
+//	@Autowired
+//	Apple obj;
+
 	@Autowired
-	Apple obj;
+	DBService dbService;
 	public static void main(String[] args) {
 
 		ConfigurableApplicationContext context = SpringApplication.run(Project1Application.class, args);
@@ -21,6 +24,7 @@ public class Project1Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		obj.eatApple();
+		//obj.eatApple();
+		System.out.println(dbService.getData());
 	}
 }
